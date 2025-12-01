@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | CP Digital Agency</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: { dark: '#0a0a0a', accent: '#6366f1', glow: '#a855f7', light: '#f3f4f6' } },
+                    fontFamily: { sans: ['Outfit', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
+                    animation: { 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #050505; color: #ffffff; overflow-x: hidden; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-card:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(99, 102, 241, 0.3); transform: translateY(-5px); transition: all 0.3s ease; }
+        .blob { position: absolute; filter: blur(80px); z-index: -1; opacity: 0.4; }
+        /* Custom Dropdown Styling */
+        .custom-select-wrapper { position: relative; width: 100%; max-width: 300px; user-select: none; }
+        .custom-select { display: flex; flex-direction: column; }
+        .custom-select__trigger { display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: 1.1rem; color: #fff; height: 60px; background: rgba(255,255,255,0.05); cursor: pointer; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; }
+        .custom-options { position: absolute; top: 100%; left: 0; right: 0; background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); border-top: 0; z-index: 50; opacity: 0; visibility: hidden; pointer-events: none; border-radius: 0 0 12px 12px; transition: all 0.3s; }
+        .custom-select.open .custom-options { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(10px); }
+        .custom-option { padding: 0 22px; line-height: 45px; cursor: pointer; color: #ccc; transition: all 0.3s; }
+        .custom-option:hover { color: #6366f1; background: rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="blob bg-purple-600 w-96 h-96 rounded-full top-0 left-0 animate-pulse-slow"></div>
+        <div class="blob bg-blue-600 w-96 h-96 rounded-full bottom-0 right-0 animate-pulse-slow delay-1000"></div>
+    </div>
+
+    <nav class="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-black/30 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 cursor-pointer">
+                    <a href="index.html" class="font-display text-2xl font-bold tracking-tighter text-white">CP <span class="text-brand-accent">Digital</span></a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="hover:text-brand-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="projects.html" class="text-brand-accent px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                        <a href="index.html#contact" class="bg-brand-accent hover:bg-brand-glow text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-lg">Start Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-24 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-4">Our Masterpieces</h2>
+                <p class="text-gray-400">Select your industry to see what we can do for you.</p>
+            </div>
+
+            <div class="flex flex-col items-center justify-center mb-16">
+                <div class="custom-select-wrapper">
+                    <div class="custom-select" id="projectSelect">
+                        <div class="custom-select__trigger">
+                            <span id="selectText">Select Industry</span>
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                        <div class="custom-options">
+                            <span class="custom-option selected" data-value="hospital">🏥 Hospitals & Clinics</span>
+                            <span class="custom-option" data-value="school">🎓 Schools & Education</span>
+                            <span class="custom-option" data-value="boutique">👗 Boutiques & Fashion</span>
+                            <span class="custom-option" data-value="training">💻 Online Training</span>
+                            <span class="custom-option" data-value="restaurant">🍔 Restaurants & Cafes</span>
+                            <span class="custom-option" data-value="more" style="color: #a855f7; font-weight: bold;">✨ More Industries...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
+                </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/10 bg-black pt-8 pb-8 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 CP Digital Agency. Crafted Passion.</p>
+    </footer>
+
+    <script>
+        const projectData = {
+            hospital: [ { title: "City Care Hospital", desc: "Patient Management System", icon: "fa-hospital" }, { title: "Dr. Smith Clinic", desc: "Appointment Booking", icon: "fa-user-doctor" }, { title: "MediLife Plus", desc: "Telemedicine Portal", icon: "fa-heart-pulse" } ],
+            school: [ { title: "Greenwood High", desc: "LMS & Student Portal", icon: "fa-graduation-cap" }, { title: "Future Kids", desc: "Interactive Learning", icon: "fa-child-reaching" }, { title: "EduTech Pro", desc: "Online Courses", icon: "fa-laptop-code" } ],
+            boutique: [ { title: "Velvet Vogue", desc: "E-commerce Store", icon: "fa-shirt" }, { title: "Urban Style", desc: "Fashion Catalog", icon: "fa-bag-shopping" }, { title: "Chic Trends", desc: "Seasonal Collections", icon: "fa-gem" } ],
+            training: [ { title: "Code Master", desc: "Live Coding Classes", icon: "fa-code" }, { title: "FitBody Gym", desc: "Virtual Training", icon: "fa-dumbbell" } ],
+            restaurant: [ { title: "Spice Route", desc: "Table Reservation", icon: "fa-utensils" }, { title: "Bean Cafe", desc: "Online Ordering", icon: "fa-mug-hot" } ]
+        };
+
+        const selectWrapper = document.querySelector('.custom-select');
+        const selectTrigger = document.querySelector('.custom-select__trigger');
+        const selectText = document.getElementById('selectText');
+        const options = document.querySelectorAll('.custom-option');
+        const grid = document.getElementById('project-grid');
+
+        // Initial Load
+        renderProjects('hospital');
+
+        selectTrigger.addEventListener('click', () => { selectWrapper.classList.toggle('open'); });
+
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                if(value === 'more') {
+                    window.location.href = 'index.html#contact'; // REDIRECTS TO CONTACT FORM ON HOME
+                    return;
+                }
+                selectWrapper.classList.remove('open');
+                selectText.textContent = this.textContent;
+                renderProjects(value);
+            });
+        });
+
+        function renderProjects(category) {
+            grid.innerHTML = '';
+            const items = projectData[category] || [];
+            grid.style.opacity = '0';
+            grid.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'glass-card p-8 rounded-xl flex flex-col items-center justify-center text-center group cursor-pointer hover:border-brand-accent/50 transition-all';
+                    card.innerHTML = `<div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4 group-hover:bg-brand-accent group-hover:text-white transition-colors"><i class="fa-solid ${item.icon} text-2xl"></i></div><h3 class="text-xl font-bold mb-2">${item.title}</h3><p class="text-sm text-gray-400">${item.desc}</p>`;
+                    grid.appendChild(card);
+                });
+                grid.style.transition = 'all 0.5s ease';
+                grid.style.opacity = '1';
+                grid.style.transform = 'translateY(0)';
+            }, 100);
+        }
+    </script>
+</body>
+</html>
